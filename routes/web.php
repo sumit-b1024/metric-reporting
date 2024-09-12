@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\LeadController;
-use App\Http\Controllers\LeadTypeController;
-use App\Http\Controllers\LeadSourceController;
+use App\Http\Controllers\EmployeeController;
+ 
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -26,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('users', UserController::class);
-    Route::resource('leads', LeadController::class);
-    Route::resource('lead-type', LeadTypeController::class);
-    Route::resource('lead-source', LeadSourceController::class);
+
+    Route::resource('employees', EmployeeController::class);
+
 });

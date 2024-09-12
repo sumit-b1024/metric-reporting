@@ -3,6 +3,7 @@
 * File include item demo only specific css only
 ******************************************************************************/
 
+.dataTables_filter{float:right}
 .menu .app-brand.demo {
   height: 64px;
   margin-top: 12px;
@@ -14,7 +15,7 @@
 }
 
 .app-brand-text.demo {
-  font-size: 1.75rem;
+  font-size: 1rem;
   letter-spacing: -0.5px;
   text-transform: uppercase;
 }

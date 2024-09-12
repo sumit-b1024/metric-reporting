@@ -4,7 +4,7 @@
             © <script>
                 document.write(new Date().getFullYear())
                 
-            </script>, made with ❤️ by <a href="https://www.rednirus.in/" target="_blank" class="footer-link fw-medium">Rednirus Digital Media</a>
+            </script> </a>
         </div>
     </div>
 </footer>

@@ -1,7 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo ">
         <a href="index.html" class="app-brand-link">
-            <span class="app-brand-text demo menu-text fw-bold ms-2">Rednirus</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2">Matric Reporting</span>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
         <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -30,6 +30,23 @@
                 </li>
             </ul>
         </li>
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div class="text-truncate" data-i18n="Employees">Employees</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('employees.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-check-shield'></i>
@@ -48,23 +65,6 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bx-check-shield'></i>
-                <div class="text-truncate" data-i18n="Lead Management">Lead Management</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{route('lead-type.index')}}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Lead Type">Lead Type</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{route('lead-source.index')}}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Lead Source">Lead Source</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        
     </ul>
 </aside>

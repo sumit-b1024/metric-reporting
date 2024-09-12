@@ -1,88 +1,28 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
+    
     <div class="row">
         <!-- Customer Ratings -->
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Customer Ratings</h5>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="customerRatings" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="customerRatings">
-                            <a class="dropdown-item" href="javascript:void(0);">Featured Ratings</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Based on Task</a>
-                            <a class="dropdown-item" href="javascript:void(0);">See All</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body pb-0">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <h1 class="display-3 mb-0">4.0</h1>
-                        <div class="ratings">
-                            <i class="bx bxs-star bx-sm text-warning"></i>
-                            <i class="bx bxs-star bx-sm text-warning"></i>
-                            <i class="bx bxs-star bx-sm text-warning"></i>
-                            <i class="bx bxs-star bx-sm text-warning"></i>
-                            <i class="bx bxs-star bx-sm text-lighter"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="badge bg-label-primary me-3">+5.0</span>
-                        <span>Points from last month</span>
-                    </div>
-                </div>
-                <div id="customerRatingsChart"></div>
-            </div>
-        </div>
+      
         <!--/ Customer Ratings -->
         <!-- Overview & Sales Activity -->
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Overview & Sales Activity</h5>
-                    <small class="card-subtitle">Check out each column for more details</small>
-                </div>
-                <div id="salesActivityChart"></div>
-            </div>
-        </div>
+ 
         <!--/ Overview & Sales Activity -->
         <div class="col-12 col-md-12 col-lg-4">
             <div class="row">
                 <div class="col-sm-6 col-md-3 col-lg-6 mb-4">
                     <div class="card">
                         <div class="card-body pb-0">
-                            <span class="d-block fw-medium mb-1">Sessions</span>
-                            <h3 class="card-title mb-2">2,845</h3>
+                            <span class="d-block fw-medium mb-1">Licence Expiring</span>
+                            <h3 class="card-title mb-2">
+                            <small class="text-danger fw-medium"><i class='bx '></i> 50</small>
+                            </h3>
                         </div>
-                        <div id="sessionsChart" class="mb-3"></div>
+                   
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../../assets/img/icons/unicons/cube-secondary.png" alt="cube" class="rounded">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt2">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="fw-medium d-block mb-1">Order</span>
-                            <h4 class="card-title mb-2">$1,286</h4>
-                            <small class="text-danger fw-medium"><i class='bx bx-down-arrow-alt'></i> -13.24%</small>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-12 col-md-6 col-lg-12 mb-4">
                     <div class="card">
                         <div class="card-body">
@@ -112,90 +52,32 @@
                 <div class="row row-bordered g-0">
                     <div class="col-md-6">
                         <div class="card-header d-flex align-items-center justify-content-between mb-4">
-                            <h5 class="card-title m-0 me-2">Top Products by <span class="text-primary">Sales</span></h5>
-                            <div class="dropdown">
-                                <button class="btn p-0" type="button" id="topSales" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="topSales">
-                                    <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                                </div>
-                            </div>
+                            <h5 class="card-title m-0 me-2">Employees <span class="text-primary"> </span></h5>
+                         
                         </div>
                         <div class="card-body">
                             <ul class="p-0 m-0">
                                 <li class="d-flex mb-4 pb-1">
                                     <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../../assets/img/icons/unicons/oneplus.png" alt="oneplus">
+                                    <i class="fas fa-id-card icon-green fa-2x"></i>  
+
                                     </div>
                                     <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div class="me-2">
-                                            <h6 class="mb-0">Oneplus Nord</h6>
-                                            <small class="text-muted d-block mb-1">Oneplus</small>
+                                            <h6 class="mb-0">Licence </h6>
+                                            <small class="text-muted d-block mb-1">Active/Inactive/Expiring</small>
                                         </div>
                                         <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="fw-medium">$98,348</span>
+                                            <span class="fw-medium text-success">45</span>/
+                                            <span class="fw-medium">30</span>/
+                                            <span class="fw-medium text-danger">25</span>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-flex mb-4 pb-1">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../../assets/img/icons/unicons/watch-primary.png" alt="smart band">
-                                    </div>
-                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                        <div class="me-2">
-                                            <h6 class="mb-0">Smart Band 4</h6>
-                                            <small class="text-muted d-block mb-1">Xiaomi</small>
-                                        </div>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="fw-medium">$15,459</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-flex mb-4 pb-1">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../../assets/img/icons/unicons/surface.png" alt="Surface">
-                                    </div>
-                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                        <div class="me-2">
-                                            <h6 class="mb-0">Surface Pro X</h6>
-                                            <small class="text-muted d-block mb-1">Miscrosoft</small>
-                                        </div>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="fw-medium">$4,589</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-flex mb-4 pb-1">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../../assets/img/icons/unicons/iphone.png" alt="iphone">
-                                    </div>
-                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                        <div class="me-2">
-                                            <h6 class="mb-0">iphone 13</h6>
-                                            <small class="text-muted d-block mb-1">Apple</small>
-                                        </div>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="fw-medium">$84,345</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-flex">
-                                    <div class="avatar flex-shrink-0 me-3">
-                                        <img src="../../assets/img/icons/unicons/earphone.png" alt="Bluetooth Earphone">
-                                    </div>
-                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                        <div class="me-2">
-                                            <h6 class="mb-0">Bluetooth Earphone</h6>
-                                            <small class="text-muted d-block mb-1">Beats</small>
-                                        </div>
-                                        <div class="user-progress d-flex align-items-center gap-1">
-                                            <span class="fw-medium">$10,374</span>
-                                        </div>
-                                    </div>
-                                </li>
+
+                                
+
+                          
                             </ul>
                         </div>
                     </div>

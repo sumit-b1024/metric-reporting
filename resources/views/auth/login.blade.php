@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-        <title>Login | Rednirus CMS</title>
+        <title>Login | {{env('APP_NAME')}}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com/">
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
@@ -28,6 +28,7 @@
         <script src="{{asset('assets/js/config.js')}}"></script>
     </head>
     <body>
+        
         <div class="authentication-wrapper authentication-cover">
             <div class="authentication-inner row m-0">
                 <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
@@ -42,16 +43,25 @@
                         <!-- Logo -->
                         <div class="app-brand mb-5">
                             <a href="{{route('dashboard')}}" class="app-brand-link gap-2">
-                                <span class="app-brand-text demo text-body fw-bold">Rednirus CMS</span>
+                                <span class="app-brand-text demo text-body fw-bold">{{env('APP_NAME')}}</span>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Welcome to Rednirus CMS! 👋</h4>
-                        <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                        <h4 class="mb-2">Welcome to {{env('APP_NAME')}}! 👋</h4>
+                        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+                        <p class="mb-4">Please sign-in to your account</p>
                         <form id="formAuthentication" class="mb-3" action="{{route('login')}}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email or Username</label>
+                                <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email or username" autofocus>
                             </div>
                             <div class="mb-3 form-password-toggle">
@@ -78,12 +88,7 @@
                             Sign in
                             </button>
                         </form>
-                        <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="{{route('register')}}">
-                            <span>Create an account</span>
-                            </a>
-                        </p>
+                    
                     </div>
                 </div>
                 <!-- /Login -->
