@@ -18,33 +18,30 @@
         @endif
     </div>
 
-    <!-- Add Employee Button -->
-    
-
     <!-- Datatable Card -->
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Employees List
-                <a href="{{ route('employees.create') }}" class="btn btn-success float-right">+ Add Employee</a>
-                <button type="button" class="btn btn-success float-right mr-1" data-bs-toggle="modal" data-bs-target="#bulkImportModal">
-                    Bulk Import
-                </button>
-            </h5>
+            <h5 class="card-title">8-Hours Certificates List</h5>
+            <a href="{{ route('eight-hours-certificates.create') }}" class="btn btn-success float-right">+ Add Certificate</a>
+            <button type="button" class="btn btn-success float-right mr-1" data-bs-toggle="modal" data-bs-target="#bulkImportModal">
+                Bulk Import Certificates
+            </button>
         </div>
-        
         <div class="card-body">
             {!! $dataTable->table(['class' => 'table table-responsive']) !!}
         </div>
     </div>
+
+    <!-- Bulk Import Modal -->
     <div class="modal fade" id="bulkImportModal" tabindex="-1" aria-labelledby="bulkImportModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bulkImportModalLabel">Bulk Import Employees</h5>
+                    <h5 class="modal-title" id="bulkImportModalLabel">Bulk Import 8-Hours Certificates</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('employees.import') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('eight-hours-certificates.import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="file" class="form-label">Choose CSV File</label>
@@ -52,20 +49,23 @@
                             @error('file')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <small class="form-text text-muted mt-5">
+
+                            <!-- Validation Points -->
+                            <small class="form-text text-muted mt-2">
                                 <strong>Instructions for File Upload:</strong>
                                 <ul>
                                     <li>The file must be in <strong>CSV</strong> format.</li>
                                     <li>Maximum file size allowed: <strong>2MB</strong>.</li>
-                                    <li>The CSV file should include the following columns: <code>employee_number, first_name, last_name, email, phone, employee_status, date_of_birth, hire_date, comments</code>.</li>
-                                    <li><strong>employee_status</strong> should be either "Full Time" or "Part Time".</li>
-                                    <li>Make sure the <strong>date_of_birth</strong> and <strong>hire_date</strong> columns are in <strong>YYYY-MM-DD</strong> format.</li>
-                                    <li>The <strong>email</strong> column should contain valid email addresses.</li>
-                                    <li>The <strong>employee_number</strong> must be unique for each employee.</li>
+                                    <li>The CSV file should include the following columns: <code>employee_id, certificate_id, expire_date, renew_date, image</code>.</li>
+                                    <li><strong>employee_id</strong> should correspond to an existing employee's ID in the database.</li>
+                                    <li><strong>expire_date</strong> and <strong>renew_date</strong> must be in the <strong>YYYY-MM-DD</strong> format.</li>
+                                    <li>The <strong>image</strong> column should contain the filenames of images that should exist on the server.</li>
                                 </ul>
                             </small>
+
+                            <!-- Link to Download Sample CSV -->
                             <div class="mt-3">
-                                <a href="{{ asset('sample_employees.csv') }}" class="btn btn-link">Download Sample CSV</a>
+                                <a href="{{ asset('sample_eight_hours_certificate.csv') }}" class="btn btn-link">Download Sample CSV</a>
                             </div>
                         </div>
 
@@ -75,6 +75,7 @@
             </div>
         </div>
     </div>
+
 </div>
 @endsection
 

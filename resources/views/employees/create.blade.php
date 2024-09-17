@@ -2,8 +2,35 @@
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row g-4 mb-4">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @endif
+    </div>
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Add Employee</h5>
@@ -11,47 +38,84 @@
                 <div class="card-body">
                     <form action="{{ route('employees.store') }}" method="POST">
                         @csrf
-                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}">
+                                    @error('first_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}">
+                                    @error('last_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="employee_number" class="form-label">Employee Number</label>
-                            <input type="text" name="employee_number" class="form-control" value="{{ old('employee_number') }}" required>
+                            <input type="text" name="employee_number" class="form-control" value="{{ old('employee_number') }}">
+                            @error('employee_number')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
-
-                        <div class="mb-3">
-                            <label for="first_name" class="form-label">First Name</label>
-                            <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name</label>
-                            <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" required>
-                        </div>
-
                         <div class="mb-3">
                             <label for="employee_status" class="form-label">Employee Status</label>
-                            <input type="text" name="employee_status" class="form-control" value="{{ old('employee_status') }}" required>
+                            <select class="form-select select-search" id="employee_status" aria-label="Select Employee Status" name="employee_status">
+                                <option value="">Select Status</option>
+                                <option value="1" {{ old('employee_status') == '1' ? 'selected' : '' }}>Part-Time</option>
+                                <option value="2" {{ old('employee_status') == '2' ? 'selected' : '' }}>Full-Time</option>
+                            </select>
+                            @error('employee_status')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
-
-                        <div class="mb-3">
-                            <label for="date_of_birth" class="form-label">Date of Birth</label>
-                            <input type="date" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                    <input type="date" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}">
+                                    @error('date_of_birth')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="hire_date" class="form-label">Hire Date</label>
+                                    <input type="date" name="hire_date" class="form-control" value="{{ old('hire_date') }}">
+                                    @error('hire_date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="hire_date" class="form-label">Hire Date</label>
-                            <input type="date" name="hire_date" class="form-control" value="{{ old('hire_date') }}" required>
-                        </div>
-
                         <div class="mb-3">
                             <label for="comments" class="form-label">Comments</label>
                             <textarea name="comments" class="form-control">{{ old('comments') }}</textarea>

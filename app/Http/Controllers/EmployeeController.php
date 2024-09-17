@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\EmployeesDataTable;
 use App\Models\Employee;
+use App\Imports\EmployeesImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -40,14 +42,13 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         // Validate the request
-        $request->validate([
+        $validatedData = $request->validate([
             'employee_number' => 'required|unique:employees,employee_number|max:20',
             'last_name' => 'required|max:50',
             'first_name' => 'required|max:50',
             'employee_status' => 'required|max:20',
             'date_of_birth' => 'required|date',
             'hire_date' => 'required|date',
-            'seniority_date' => 'required|date',
             'phone' => 'nullable|max:15',
             'email' => 'nullable|email|max:100',
             'uniform_pant_size' => 'nullable|max:10',
@@ -56,7 +57,7 @@ class EmployeeController extends Controller
         ]);
 
         // Create the new employee record
-        Employee::create($request->all());
+        Employee::create($validatedData);
 
         return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
@@ -100,7 +101,6 @@ class EmployeeController extends Controller
             'employee_status' => 'required|max:20',
             'date_of_birth' => 'required|date',
             'hire_date' => 'required|date',
-            'seniority_date' => 'required|date',
             'phone' => 'nullable|max:15',
             'email' => 'nullable|email|max:100',
             'uniform_pant_size' => 'nullable|max:10',
@@ -126,5 +126,20 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt|max:2048', // Validate file type and size
+        ]);
+    
+        try {
+            Excel::import(new EmployeesImport, $request->file('file'));
+    
+            return redirect()->route('employees.index')->with('success', 'Employees imported successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('employees.index')->with('error', 'Error importing employees: ' . $e->getMessage());
+        }
     }
 }

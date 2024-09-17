@@ -1,7 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo ">
         <a href="index.html" class="app-brand-link">
-            <span class="app-brand-text demo menu-text fw-bold ms-2">Matric Reporting</span>
+            <h2 class="app-brand-text demo menu-text fw-bold ms-2">Matric Reporting</h2>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
         <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -16,7 +16,7 @@
               <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
               <span class="badge badge-center rounded-pill bg-danger ms-auto">5</span>
             </a>
-          </li>
+        </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
@@ -30,23 +30,6 @@
                 </li>
             </ul>
         </li>
-
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Employees">Employees</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{route('employees.index')}}" class="menu-link">
-                        <div class="text-truncate" data-i18n="List">List</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-
-
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-check-shield'></i>
@@ -61,6 +44,75 @@
                 <li class="menu-item">
                     <a href="{{route('permissions.index')}}" class="menu-link">
                         <div class="text-truncate" data-i18n="Permission">Permission</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text" data-i18n="Employee Management">Employee Management</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user-check"></i>
+                <div class="text-truncate" data-i18n="Employees">Employees</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('employees.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-plane"></i>
+                <div class="text-truncate" data-i18n="Airport SIDA Badge">Airport SIDA Badge</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('airport-badge.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-card"></i>
+                <div class="text-truncate" data-i18n="Security Guard License">Security Guard License</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('security-guard-licenses.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-car"></i>
+                <div class="text-truncate" data-i18n="Driving License">Driving License</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('driving-licenses.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-time"></i>
+                <div class="text-truncate" data-i18n="8 Hours Certificate">8 Hours Certificate</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('eight-hours-certificates.index')}}" class="menu-link">
+                        <div class="text-truncate" data-i18n="List">List</div>
                     </a>
                 </li>
             </ul>

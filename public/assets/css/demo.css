@@ -20,6 +20,14 @@
   text-transform: uppercase;
 }
 
+.float-right {
+  float: right;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
 /* ! For .layout-navbar-fixed added fix padding top to .layout-page */
 /* Detached navbar */
 .layout-navbar-fixed .layout-wrapper:not(.layout-horizontal):not(.layout-without-menu) .layout-page {

@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\DataTables;
 
 use App\Models\Employee;
@@ -15,17 +16,27 @@ class EmployeesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
+            ->addColumn('full_name', function($row) {
+                return $row->first_name . ' ' . $row->last_name;
+            })
             // Add an action column for Edit and Delete buttons
             ->addColumn('action', function($row){
-                return '<a href="'.route('employees.edit', $row->id).'" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="'.route('employees.destroy', $row->id).'" class="btn btn-sm btn-danger" 
-                        onclick="return confirm(\'Are you sure?\')">Delete</a>';
-            });
+                $editUrl = route('employees.edit', $row->id);
+                $deleteUrl = route('employees.destroy', $row->id);
+
+                return '<a href="'.$editUrl.'" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="'.$deleteUrl.'" method="POST" style="display:inline;" onsubmit="return confirm(\'Are you sure you want to delete this Employee?\')">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>';
+            })
+            ->rawColumns(['action']); // Prevent escaping of the HTML in the action column
     }
 
     public function query(Employee $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->select('*');
     }
 
     public function html(): HtmlBuilder
@@ -35,13 +46,12 @@ class EmployeesDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->orderBy(1)
                     ->selectStyleSingle()
+                    ->dom('Bfrtip') // Add 'Bfrtip' to enable buttons
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
                         Button::make('pdf'),
                         Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload'),
                     ]);
     }
 
@@ -50,21 +60,17 @@ class EmployeesDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('employee_number'),
-            Column::make('last_name'),
-            Column::make('first_name'),
-            Column::make('employee_status'),
-            Column::make('date_of_birth'),
+            Column::make('full_name')->title('Full Name'),
+            Column::make('employee_status')->title('Status'),
+            Column::make('date_of_birth')->title('DOB'),
             Column::make('hire_date'),
             Column::make('phone'),
             Column::make('email'),
-            Column::make('uniform_pant_size'),
-            Column::make('uniform_shirt_size'),
-            Column::make('comments'),
             Column::computed('action')  // Add action column
-                ->exportable(false)
-                ->printable(false)
-                ->width(100)
-                ->addClass('text-center'),
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(100)
+                  ->addClass('text-center'),
         ];
     }
 
