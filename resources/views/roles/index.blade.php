@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl mt-4 flex-grow-1 container-p-y">
     <h4 class="py-3 mb-2">Roles List</h4>
     @if(session('success'))
     <div class="alert alert-success alert-dismissible" role="alert">

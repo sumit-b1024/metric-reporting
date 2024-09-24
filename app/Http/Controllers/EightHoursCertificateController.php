@@ -37,7 +37,8 @@ class EightHoursCertificateController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'certificate_id' => 'required|string|max:50',
             'expire_date' => 'required|date',
-            'renew_date' => 'nullable|date',
+            'license_type' => 'nullable',
+            'missing_annual_training' => 'nullable',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -75,7 +76,8 @@ class EightHoursCertificateController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'certificate_id' => 'required|string|max:50',
             'expire_date' => 'required|date',
-            'renew_date' => 'nullable|date',
+            'license_type' => 'nullable',
+            'missing_annual_training' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

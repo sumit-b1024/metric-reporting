@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl mt-4 flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -52,22 +52,35 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="renew_date" class="form-label">Renew Date</label>
-                                    <input type="date" name="renew_date" class="form-control" value="{{ old('renew_date', $eightHoursCertificate->renew_date) }}">
-                                    @error('renew_date')
+                                    <label for="missing_annual_training" class="form-label">License Type</label>
+                                    <input type="text" name="missing_annual_training" class="form-control" value="{{ old('missing_annual_training', $eightHoursCertificate->missing_annual_training) }}">
+                                    @error('missing_annual_training')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Certificate Image</label>
-                            <input type="file" name="image" class="form-control">
-                            @error('image')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            <small class="text-muted">Leave blank to keep the current image.</small>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="license_type" class="form-label">Missing Annual Training</label>
+                                    <input type="text" name="license_type" class="form-control" value="{{ old('license_type', $eightHoursCertificate->license_type) }}">
+                                    @error('license_type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Certificate Image</label>
+                                    <input type="file" name="image" class="form-control">
+                                    @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    <small class="text-muted">Leave blank to keep the current image.</small>
+                                </div>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-success">Update Certificate</button>

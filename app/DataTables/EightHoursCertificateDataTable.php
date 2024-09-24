@@ -63,7 +63,8 @@ class EightHoursCertificateDataTable extends DataTable
             Column::computed('employee_name')->title('Employee Name'),
             Column::make('certificate_id'),
             Column::make('expire_date'),
-            Column::make('renew_date'),
+            Column::make('license_type'),
+            Column::make('missing_annual_training'),
             Column::computed('image')->title('Certificate Image')->exportable(false)->printable(false)->width(60)->addClass('text-center'),
             Column::computed('action')->exportable(false)->printable(false)->width(100)->addClass('text-center'),
         ];

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!DOCTYPE html>
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl mt-4 flex-grow-1 container-p-y">
     <div class="row g-4 mb-4">
         @if(session('success'))
         <div class="alert alert-success alert-dismissible" role="alert">

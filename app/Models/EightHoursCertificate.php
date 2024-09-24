@@ -13,7 +13,8 @@ class EightHoursCertificate extends Model
         'employee_id',
         'certificate_id',
         'expire_date',
-        'renew_date',
+        'license_type',
+        'missing_annual_training',
         'image',
     ];
 
