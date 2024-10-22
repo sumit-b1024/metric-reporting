@@ -18,6 +18,7 @@ class Employee extends Model
         'hire_date',
         'phone',
         'email',
+        'seniority_date',
         'uniform_pant_size',
         'uniform_shirt_size',
         'comments',

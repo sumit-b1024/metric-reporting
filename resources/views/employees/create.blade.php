@@ -112,6 +112,15 @@
                             @enderror
                         </div>
 
+                        <!-- Seniority Date -->
+                        <div class="mb-3">
+                            <label for="seniority_date" class="form-label">Seniority Date</label>
+                            <input type="date" name="seniority_date" class="form-control" value="{{ old('seniority_date') }}">
+                            @error('seniority_date')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <!-- Uniform Pant Size -->
                         <div class="mb-3">
                             <label for="uniform_pant_size" class="form-label">Uniform Pant Size</label>
