@@ -48,8 +48,14 @@ class EmployeesDataTable extends DataTable
                     ->selectStyleSingle()
                     ->dom('Bfrtip') // Add 'Bfrtip' to enable buttons
                     ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
+                        Button::make('excel')
+                            ->text('Export Excel')
+                            ->action("window.location.href='" . route('employees.export.excel') . "';"),
+                        
+                        Button::make('csv')
+                            ->text('Export CSV')
+                            ->action("window.location.href='" . route('employees.export.csv') . "';"),
+                        
                         Button::make('pdf'),
                         Button::make('print'),
                     ]);

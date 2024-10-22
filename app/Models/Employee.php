@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'employee_number',
         'last_name',
@@ -19,6 +20,15 @@ class Employee extends Model
         'email',
         'uniform_pant_size',
         'uniform_shirt_size',
-        'comments'
+        'comments',
+        'user_id',  // Added user_id to link the User model
     ];
+
+    /**
+     * Relationship with the User model.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

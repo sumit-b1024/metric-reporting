@@ -1,23 +1,20 @@
 @extends('layouts.app')
 @section('content')
- 
+
 <div class="container-xxl mt-4 flex-grow-1 container-p-y">
     <div class="row g-4 mb-4">
         @if(session('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if(session('error'))
-        <div class="alert alert-success alert-dismissible" role="alert">
+        <div class="alert alert-danger alert-dismissible" role="alert">
             {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-    
     </div>
     <!-- Users List Table -->
     <div class="card">
@@ -45,18 +42,40 @@
                     <tr>
                         <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
-                                <div class="avatar-wrapper">
-                                    <div class="avatar avatar-sm me-3"><img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle"></div>
+                                <div class="d-flex flex-column">
+                                    <a href="app-user-view-account.html" class="text-body text-truncate">
+                                        <span class="fw-medium">{{ $user->name }}</span>
+                                    </a>
+                                    <small class="text-muted">{{ $user->email }}</small>
                                 </div>
-                                <div class="d-flex flex-column"><a href="app-user-view-account.html" class="text-body text-truncate"><span class="fw-medium">{{$user->name}}</span></a><small class="text-muted">{{$user->email}}</small></div>
                             </div>
                         </td>
-                        <td><span class="text-truncate d-flex align-items-center"><span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="bx bx-pie-chart-alt bx-xs"></i></span>Maintainer</span></td>
-                        <td>{{$user->mobile}}</td>
-                        <td><span class="badge bg-label-success">Active</span></td>
+                        <td>
+                            <span class="text-truncate d-flex align-items-center">
+                                <span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2">
+                                    <i class="fa fa-user-shield"></i>
+                                </span>Maintainer
+                            </span>
+                        </td>
+                        <td>{{ $user->phone }}</td>
+                        <td>
+                            <span class="badge bg-label-success">Active</span>
+                        </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-sm btn-icon editButton" data-bs-target="#offcanvasAddUser" data-bs-toggle="offcanvas" data-id={{$user->id}}><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon delete-record" data-id={{$user->id}} data-bs-toggle="modal" data-route={{route('users.destroy', $user->id)}} data-bs-target="#toggleModal" data-content="Are you sure you want to delete this User?"><i class="bx bx-trash"></i></button>
+                                <!-- Check if the user has the 'edit users' permission -->
+                                @can('edit users')
+                                <button class="btn btn-sm btn-icon editButton" data-bs-target="#offcanvasAddUser" data-bs-toggle="offcanvas" data-id="{{ $user->id }}">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                @endcan
+
+                                <!-- Check if the user has the 'delete users' permission -->
+                                @can('delete users')
+                                <button class="btn btn-sm btn-icon delete-record" data-id="{{ $user->id }}" data-bs-toggle="modal" data-route="{{ route('users.destroy', $user->id) }}" data-bs-target="#toggleModal" data-content="Are you sure you want to delete this User?">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                @endcan
                             </div>
                         </td>
                     </tr>
@@ -64,6 +83,7 @@
                 </tbody>
             </table>
         </div>
+
         <!-- Offcanvas to add new user -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
             <div class="offcanvas-header">
@@ -72,7 +92,7 @@
             </div>
             <div class="offcanvas-body mx-0 flex-grow-0">
                 <div id="message"></div>
-                <form class="add-new-user pt-0" id="addNewUserForm" action="{{route('users.store')}}" onsubmit="return false">
+                <form class="add-new-user pt-0" id="addNewUserForm" action="{{ route('users.store') }}" onsubmit="return false">
                     @csrf
                     <input type="hidden" name="id" value="" id="edit-id">
                     <div class="mb-3">
@@ -92,13 +112,13 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="password">Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Add Password" aria-label="jdoe1" name="password" />
+                        <input type="password" id="password" class="form-control" placeholder="Add Password" aria-label="Password" name="password" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="user-role">User Role</label>
                         <select id="user-role" class="form-select" name='role'>
                             @foreach ($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -109,16 +129,19 @@
         </div>
     </div>
 </div>
+
 @endsection
+
 @section('js')
-<script src="{{asset('assets/js/app-user-list.js')}}"></script>
+<script src="{{ asset('assets/js/app-user-list.js') }}"></script>
 <script>
     $(document).on('click', '.editButton', function() {
         openEditModalWithFetch($(this).attr('data-id'));
     });
+
     $(document).ready(function() {
         $('#addNewUserForm').submit(function(event) {
-            if($('#edit-id').val() !== '') {
+            if ($('#edit-id').val() !== '') {
                 var route = '/users/' + $('#edit-id').val();
                 var method = 'PUT';
             } else {
@@ -147,12 +170,14 @@
                             $('#mobileError').html(response.errors.mobile[0]);
                         }
                     } else {
-                        if (response.success){
+                        if (response.success) {
                             $('#message').html('<div class="alert alert-success" role="alert">' + response.success + '</div>');
                         } else {
                             $('#message').html('<div class="alert alert-danger" role="alert">' + response.error + '</div>');
                         }
-                        setTimeout(function() {location.reload();}, 2000);
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
                     }
                 },
                 error: function(xhr) {
@@ -161,7 +186,7 @@
                     if (response.errors.name) {
                         $('#nameError').html(response.errors.name[0]);
                     } else {
-                        if (response.success){
+                        if (response.success) {
                             $('#message').html('<div class="alert alert-success" role="alert">' + response.success + '</div>');
                         } else {
                             $('#message').html('<div class="alert alert-danger" role="alert">' + response.error + '</div>');
@@ -171,6 +196,7 @@
             });
         });
     });
+
     function openEditModalWithFetch(userId) {
         $.ajax({
             url: '/users/' + userId,
@@ -190,7 +216,6 @@
                 }
             },
             error: function(xhr) {
-                // Handle AJAX error
                 console.error('Error fetching permission data:', xhr.responseText);
             }
         });

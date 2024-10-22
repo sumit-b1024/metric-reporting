@@ -48,7 +48,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="file" class="form-label">Choose CSV File</label>
-                            <input type="file" name="file" class="form-control" required accept=".csv">
+                            <input type="file" name="file" class="form-control" required accept=".csv,.xls,.xlsx">
                             @error('file')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

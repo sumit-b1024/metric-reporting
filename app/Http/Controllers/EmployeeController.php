@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Imports\EmployeesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Exports\EmployeesExport;
 
 class EmployeeController extends Controller
 {
@@ -131,7 +132,7 @@ class EmployeeController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:csv,txt|max:2048', // Validate file type and size
+            'file' => 'required|mimes:csv,xlsx|max:2048', // Validate file type and size
         ]);
     
         try {
@@ -141,5 +142,21 @@ class EmployeeController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('employees.index')->with('error', 'Error importing employees: ' . $e->getMessage());
         }
+    }
+
+     /**
+     * Export Employees as CSV.
+     */
+    public function exportCsv()
+    {
+        return Excel::download(new EmployeesExport, 'employees.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
+    /**
+     * Export Employees as Excel.
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new EmployeesExport, 'employees.xlsx');
     }
 }

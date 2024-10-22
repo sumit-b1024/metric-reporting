@@ -3,45 +3,60 @@
 namespace App\Imports;
 
 use App\Models\Employee;
-use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Carbon\Carbon;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class EmployeesImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * Map the Excel row to the Employee model.
+     */
     public function model(array $row)
     {
-        return new Employee([
-            'employee_number' => $row['employee_number'],
-            'first_name'      => $row['first_name'],
-            'last_name'       => $row['last_name'],
-            'email'           => $row['email'],
-            'phone'           => $row['phone'],
-            'employee_status' => $row['employee_status'],
-            'date_of_birth'   => $this->transformDate($row['date_of_birth']),
-            'hire_date'       => $this->transformDate($row['hire_date']),
-            'comments'        => $row['comments'],
-        ]);
+        if(!empty( $row['first_name']))
+        return Employee::updateOrCreate(
+            ['employee_number' => $row['employee_number']],  // Unique field to identify the employee
+            [
+                'first_name'         => $row['first_name'],
+                'last_name'          => $row['last_name'],
+                'employee_status'    => $row['employee_status'],
+                'date_of_birth'      => $this->formatDate($row['date_of_birth']),  // Convert date format
+                'hire_date'          => $this->formatDate($row['hire_date']),  // Convert date format
+                'seniority_date'     => $this->formatDate($row['32bj_seniority_date']),  // Convert date format
+                'phone'              => $row['phone'] ?? null,
+                'email'              => $row['email'] ?? null,
+                'uniform_pant_size'  => $row['uniform_pant_size'] ?? null,
+                'uniform_shirt_size' => $row['uniform_shirt_size'] ?? null,
+                'comments'           => $row['comments'] ?? null,
+            ]
+        );
     }
 
-    /**
-     * Transform the date to the correct format.
-     *
-     * @param string|null $value
-     * @return string|null
-     */
-    private function transformDate($value)
-    {
+    private function formatDate($date)
+{
+    // Check if the date is numeric (Excel stores dates as numeric values)
+    if (is_numeric($date)) {
         try {
-            return Carbon::parse($value)->format('Y-m-d');
+            // Convert Excel date serial number to a valid Carbon date
+            return Carbon::instance(Date::excelToDateTimeObject($date))->format('Y-m-d');
         } catch (\Exception $e) {
-            // Return null or handle the error as needed if the date is invalid
+            // Return null if conversion fails
+            return null;
+        }
+    } elseif (!empty($date)) {
+        // If it's not a number, assume it's already in a valid date format
+        try {
+            // Attempt to parse and format the date
+            return Carbon::parse($date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            // Return null if the date parsing fails
             return null;
         }
     }
+
+    // Return null if the date is empty or invalid
+    return null;
+}
 }

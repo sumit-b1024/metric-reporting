@@ -24,24 +24,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-2">
-                        <h6 class="fw-normal">Total 4 users</h6>
-                        <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy" class="avatar avatar-sm pull-up">
-                                <img class="rounded-circle" src="{{asset('assets/img/avatars/5.png')}}" alt="Avatar">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Allen Rieske" class="avatar avatar-sm pull-up">
-                                <img class="rounded-circle" src="{{asset('assets/img/avatars/12.png')}}" alt="Avatar">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Julee Rossignol" class="avatar avatar-sm pull-up">
-                                <img class="rounded-circle" src="{{asset('assets/img/avatars/6.png')}}" alt="Avatar">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Kaith D'souza" class="avatar avatar-sm pull-up">
-                                <img class="rounded-circle" src="{{asset('assets/img/avatars/15.png')}}" alt="Avatar">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="John Doe" class="avatar avatar-sm pull-up">
-                                <img class="rounded-circle" src="{{asset('assets/img/avatars/1.png')}}" alt="Avatar">
-                            </li>
-                        </ul>
+                       
+                        
                     </div>
                     
                     <div class="d-flex justify-content-between align-items-end">
@@ -60,7 +44,7 @@
                 <div class="row h-100">
                     <div class="col-sm-5">
                         <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
-                            <img src="{{asset('assets/img/illustrations/sitting-girl-with-laptop-light.png')}}" class="img-fluid" alt="Image" width="120">
+                           
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -82,19 +66,16 @@
                                 <th>Role</th>
                                 <th>No of Users</th>
                                 <th>Created_At</th>
-                                <th>Actions</th>
+                               
                             </tr>
                         </thead>
                         @foreach ($roles as $role)
                         <tr>
                             <td><span class="text-nowrap">{{$role->name}}</span></td>
-                            <td>4 Users</td>
+                            <td>{{ $role->users->count() }} Users</td> <!-- Dynamically fetch user count -->
+
                             <td><span class="text-nowrap">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $role->created_at)->format('d M Y, g:i A')}}</span></td>
-                            <td>
-                                <span class="text-nowrap">
-                                    <button class="btn btn-sm btn-icon me-2 editButton" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal" data-id={{$role->id}}><i class="bx bx-edit"></i></button>
-                                    <button class="btn btn-sm btn-icon delete-record" data-id={{$role->id}} data-bs-toggle="modal" data-route={{route('roles.destroy', $role->id)}} data-bs-target="#toggleModal" data-content="Are you sure you want to delete this Role?"><i class="bx bx-trash"></i></button>
-                                </span></td>
+                            
                         </tr>
                         @endforeach
                     </table>

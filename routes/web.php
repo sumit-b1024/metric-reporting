@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Auth::routes();
-
+Route::get('employees/export/csv', [EmployeeController::class, 'exportCsv'])->name('employees.export.csv');
+Route::get('employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);

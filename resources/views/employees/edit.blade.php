@@ -92,6 +92,26 @@
                             @enderror
                         </div>
 
+                        
+
+                        <!-- New Uniform Pant Size Field -->
+                        <div class="mb-4">
+                            <label class="form-label" for="uniform_pant_size">Uniform Pant Size</label>
+                            <input type="text" id="uniform_pant_size" name="uniform_pant_size" class="form-control" placeholder="Enter Uniform Pant Size" value="{{ old('uniform_pant_size', $employee->uniform_pant_size) }}" />
+                            @error('uniform_pant_size')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- New Uniform Shirt Size Field -->
+                        <div class="mb-4">
+                            <label class="form-label" for="uniform_shirt_size">Uniform Shirt Size</label>
+                            <input type="text" id="uniform_shirt_size"  value="{{ old('uniform_shirt_size', $employee->uniform_shirt_size) }}" name="uniform_shirt_size" class="form-control" placeholder="Enter Uniform Shirt Size" />
+                            @error('uniform_shirt_size')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="comments" class="form-label">Comments</label>
                             <textarea name="comments" class="form-control">{{ old('comments', $employee->comments) }}</textarea>
@@ -99,6 +119,8 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                 
+
 
                         <button type="submit" class="btn btn-success">Update Employee</button>
                         <a href="{{ route('employees.index') }}" class="btn btn-secondary">Cancel</a>
