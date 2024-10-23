@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" value="{{ old('password', $user->password) }}">
+                                    <input type="password" name="password" class="form-control" value="">
                                     @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

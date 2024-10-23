@@ -72,12 +72,15 @@ class UserController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $user = User::where('id', $id)->update([
+            $data = [
                 'name' => $request->input('name'),
                 'email' =>  $request->input('email'),
-                'phone' => $request->input('mobile'),
-                'password' => Hash::make($request->input('password'))
-            ]);
+                'phone' => $request->input('mobile')
+            ];
+            if($request->input('password') != null){
+                $data['password'] = Hash::make($request->input('password'));
+            }
+            $user = User::where('id', $id)->update($data);
             $user = User::findOrFail($id);
             $role = Role::where('id', $request->input('role'))->first();
             $permissions = Permission::pluck('id', 'id')->all();
