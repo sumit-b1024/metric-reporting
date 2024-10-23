@@ -6,7 +6,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Edit Employee</h5>
+                    <h5 class="card-title">@if(Auth::guard('employee')->check() === false) Edit Employee @else Update Profile @endif</h5>
                 </div>
                 <div class="card-body">
                     <!-- Display Validation Errors at the Top -->
@@ -20,13 +20,13 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+                    <form action="@if(Auth::guard('employee')->check() === false) {{ route('employees.update', $employee->id) }} @else {{ route('employee.profile.update', $employee->id) }} @endif  " method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="employee_number" class="form-label">Employee Number</label>
-                            <input type="text" name="employee_number" class="form-control" value="{{ old('employee_number', $employee->employee_number) }}" required>
+                            <input type="text" name="employee_number" class="form-control" value="{{ old('employee_number', $employee->employee_number) }}" @if(Auth::guard('employee')->check() === false)  @else readonly @endif>
                             @error('employee_number')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -86,7 +86,7 @@
 
                         <div class="mb-3">
                             <label for="hire_date" class="form-label">Hire Date</label>
-                            <input type="date" name="hire_date" class="form-control" value="{{ old('hire_date', $employee->hire_date) }}" required>
+                            <input type="date" name="hire_date" class="form-control" value="{{ old('hire_date', $employee->hire_date) }}" @if(Auth::guard('employee')->check() === false)  @else redonly @endif>
                             @error('hire_date')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

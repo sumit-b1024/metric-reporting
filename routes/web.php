@@ -9,6 +9,7 @@ use App\Http\Controllers\AirportBadgeController;
 use App\Http\Controllers\SecurityGuardLicenseController;
 use App\Http\Controllers\DrivingLicenseController;
 use App\Http\Controllers\EightHoursCertificateController;
+use App\Http\Controllers\Auth\EmployeeLoginController;
  
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Auth::routes();
+Route::get('employee/login', [EmployeeLoginController::class, 'showLoginForm'])->name('employee.login');
+Route::post('employee/login', [EmployeeLoginController::class, 'login']);
+Route::post('employee/logout', [EmployeeLoginController::class, 'logout'])->name('employee.logout');
+Route::middleware(['auth:employee'])->group(function () {
+    Route::get('/employee/dashboard', function () {
+        return view('employee.dashboard');
+    })->name('employee.dashboard');
+    Route::get('employees/profile/{employee}', [EmployeeController::class, 'edit'])->name('employee.profile');
+    Route::put('employees/profile/update/{employee}', [EmployeeController::class, 'update'])->name('employee.profile.update');
+});
 Route::get('employees/export/csv', [EmployeeController::class, 'exportCsv'])->name('employees.export.csv');
 Route::get('employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -30,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('users', UserController::class);
+
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
 
     Route::resource('employees', EmployeeController::class);
     Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');

@@ -27,6 +27,7 @@ class EmployeesImport implements ToModel, WithHeadingRow
                 'seniority_date'     => $this->formatDate($row['seniority_date']),  // Convert date format
                 'phone'              => $row['phone'] ?? null,
                 'email'              => $row['email'] ?? null,
+                'password'           => $row['first_name'].'@'.$row['employee_number'],
                 'uniform_pant_size'  => $row['uniform_pant_size'] ?? null,
                 'uniform_shirt_size' => $row['uniform_shirt_size'] ?? null,
                 'comments'           => $row['comments'] ?? null,

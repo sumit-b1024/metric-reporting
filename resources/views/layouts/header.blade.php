@@ -8,6 +8,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="@if(Auth::guard('employee')->check() === false) {{ route('user.profile') }} @else {{ route('employee.profile', auth()->user()) }} @endif">Settings</a></li>
                 <!-- Logout link -->
                 <li>
                     <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

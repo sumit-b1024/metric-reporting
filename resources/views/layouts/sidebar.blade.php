@@ -6,17 +6,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <div class="sb-sidenav-menu-heading">Users</div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Users   
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('users.index')}}">List</a>
-                    </nav>
-                </div>
+                @if(Auth::guard('employee')->check() === false)
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRoles" aria-expanded="false" aria-controls="collapseRoles">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Roles & Permissions   
@@ -28,6 +18,7 @@
                         <a class="nav-link" href="{{route('permissions.index')}}">Permissions</a>
                     </nav>
                 </div>
+                
                 <div class="sb-sidenav-menu-heading">Employee Management</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEmployee" aria-expanded="false" aria-controls="collapseEmployee">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -79,6 +70,7 @@
                         <a class="nav-link" href="{{route('eight-hours-certificates.index')}}">List</a>
                     </nav>
                 </div>
+                @endif
             </div>
         </div>
     </nav>

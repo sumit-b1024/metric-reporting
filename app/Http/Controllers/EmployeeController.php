@@ -8,6 +8,7 @@ use App\Imports\EmployeesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Exports\EmployeesExport;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -56,6 +57,8 @@ class EmployeeController extends Controller
             'uniform_shirt_size' => 'nullable|max:10',
             'comments' => 'nullable'
         ]);
+
+        $validatedData['password'] = $request->get('first_name').'@'.$request->get('employee_number');
 
         // Create the new employee record
         Employee::create($validatedData);
@@ -108,9 +111,15 @@ class EmployeeController extends Controller
             'uniform_shirt_size' => 'nullable|max:10',
             'comments' => 'nullable'
         ]);
-
+        $data = $request->all();
+        $data['password'] = $request->get('first_name').'@'.$request->get('employee_number');
         // Update the employee record
-        $employee->update($request->all());
+        $employee->update($data);
+
+        if(Auth::guard('employee')->check() === true)
+        {
+            return redirect()->route('employee.dashboard')->with('success', 'Employee updated successfully.');
+        }
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
